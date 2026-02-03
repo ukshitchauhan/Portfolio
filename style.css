@@ -1,0 +1,225 @@
+/* --- Variables --- */
+:root {
+    --bg-dark: #020617;       /* Deep Void Black */
+    --card-solid: #1e293b;    /* Solid Slate for Cards */
+    --border-color: rgba(255, 255, 255, 0.1);
+    --primary: #a855f7;       /* Purple */
+    --secondary: #06b6d4;     /* Cyan */
+    --text-main: #f8fafc;
+    --text-muted: #94a3b8;
+    --font-heading: 'Outfit', sans-serif;
+    --font-code: 'Fira Code', monospace;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+    background-color: var(--bg-dark);
+    color: var(--text-main);
+    font-family: var(--font-heading);
+    overflow-x: hidden;
+}
+
+/* --- Navbar (Fixed & Working) --- */
+.navbar {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 15px 8%; 
+    position: fixed; width: 100%; top: 0; z-index: 9999; /* High z-index to sit on top of cards */
+    backdrop-filter: blur(15px); background: rgba(2, 6, 23, 0.85);
+    border-bottom: 1px solid var(--border-color);
+}
+.logo { font-weight: 800; font-size: 1.6rem; color: #fff; text-decoration: none; }
+.logo .dot { color: var(--primary); }
+
+.nav-links { display: flex; gap: 30px; list-style: none; }
+.nav-links a { color: var(--text-muted); text-decoration: none; font-weight: 500; transition: 0.3s; font-size: 0.95rem; }
+.nav-links a:hover { color: #fff; }
+
+/* Contact Button in Nav */
+.btn-nav { 
+    color: var(--primary) !important; 
+    border: 1px solid rgba(168,85,247,0.3); 
+    padding: 8px 20px; 
+    border-radius: 50px; 
+}
+.btn-nav:hover { background: rgba(168, 85, 247, 0.1); }
+.hamburger { display: none; color: #fff; font-size: 1.5rem; cursor: pointer; }
+
+/* --- Hero --- */
+.hero { min-height: 100vh; padding: 100px 8% 0; display: flex; align-items: center; justify-content: space-between; }
+.hero h1 { font-size: 3.5rem; line-height: 1.1; margin-bottom: 20px; }
+.gradient-text { background: linear-gradient(to right, var(--primary), var(--secondary)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.badge { display: inline-block; padding: 5px 15px; border-radius: 50px; background: rgba(168,85,247,0.1); color: var(--primary); border: 1px solid rgba(168,85,247,0.3); font-size: 0.8rem; margin-bottom: 20px; }
+.bio { color: var(--text-muted); max-width: 500px; margin-bottom: 30px; }
+
+/* Buttons */
+.hero-btns { display: flex; gap: 15px; }
+.btn { padding: 12px 25px; border-radius: 8px; font-weight: 600; text-decoration: none; transition: 0.3s; }
+.btn.primary { background: var(--text-main); color: var(--bg-dark); }
+.btn.outline { border: 1px solid var(--border-color); color: var(--text-main); }
+
+/* --- Code Block --- */
+.code-block {
+    background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(12px);
+    border: 1px solid var(--border-color); border-radius: 12px;
+    width: 350px; box-shadow: 0 20px 50px -10px rgba(0,0,0,0.5);
+    transform: rotateY(-10deg) rotateX(5deg);
+}
+.code-header { padding: 10px 15px; background: rgba(0,0,0,0.3); display: flex; justify-content: space-between; }
+.window-controls { display: flex; gap: 6px; }
+.dot { width: 10px; height: 10px; border-radius: 50%; }
+.red { background: #ff5f56; } .yellow { background: #ffbd2e; } .green { background: #27c93f; }
+.code-content { padding: 20px; font-family: var(--font-code); font-size: 0.85rem; color: #e2e8f0; }
+.keyword { color: #c084fc; } .string { color: #22d3ee; }
+
+/* --- Skills --- */
+.section { padding: 80px 5%; }
+.center-head { text-align: center; margin-bottom: 40px; }
+.skills-grid { 
+    display: flex; justify-content: center; flex-wrap: wrap; gap: 20px; 
+    max-width: 1000px; margin: 0 auto;
+}
+.skill-card {
+    background: var(--card-solid);
+    border: 1px solid var(--border-color);
+    padding: 15px 30px; border-radius: 12px;
+    display: flex; align-items: center; gap: 12px;
+    font-weight: 600; color: var(--text-main);
+    transition: 0.3s;
+}
+.skill-card:hover { transform: translateY(-5px); border-color: var(--primary); }
+.skill-card i { font-size: 1.5rem; }
+
+/* --- STACKED CARDS PROJECT SECTION --- */
+.section-header.center { text-align: center; margin-bottom: 50px; }
+.section-heading { font-size: 2.5rem; margin-bottom: 10px; }
+.swipe-hint { color: var(--secondary); font-size: 0.9rem; animation: bounce 2s infinite; }
+
+/* Fixed Dimensions for the Stack Effect */
+.swiper {
+    width: 500px;   /* Card Width */
+    height: 700px;  /* Card Height */
+    padding-top: 20px;
+    padding-bottom: 50px;
+}
+
+.swiper-slide {
+    border-radius: 20px;
+    /* This shadow creates depth for the stack */
+    box-shadow: 0 0 20px rgba(0,0,0,0.5); 
+}
+
+/* Solid Card Design */
+.solid-card {
+    width: 100%; height: 100%;
+    background: var(--card-solid);
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    display: flex; flex-direction: column;
+    overflow: hidden;
+}
+
+.card-visual {
+    height: 50%;
+    position: relative;
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+}
+.gradient-1 { background: linear-gradient(135deg, #4c1d95, #2e1065); }
+.gradient-2 { background: linear-gradient(135deg, #0e7490, #164e63); }
+.gradient-3 { background: linear-gradient(135deg, #be185d, #831843); }
+.gradient-4 { background: linear-gradient(135deg, #047857, #064e3b); }
+
+.icon-bg { font-size: 7rem; color: rgba(255,255,255,0.1); transform: rotate(-10deg); }
+.project-number { 
+    position: absolute; top: 20px; right: 20px; 
+    font-size: 3rem; font-weight: 800; color: rgba(255,255,255,0.1); 
+}
+
+.card-info { padding: 30px; display: flex; flex-direction: column; height: 50%; }
+.card-meta { font-size: 0.75rem; text-transform: uppercase; color: var(--primary); letter-spacing: 1px; font-weight: 700; margin-bottom: 5px; }
+.card-info h3 { font-size: 1.6rem; margin-bottom: 10px; color: #fff; }
+.card-info p { font-size: 0.95rem; color: var(--text-muted); line-height: 1.6; flex-grow: 1; }
+
+.tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
+.tags span { 
+    font-family: var(--font-code); font-size: 0.75rem; 
+    background: rgba(255,255,255,0.05); padding: 5px 10px; border-radius: 4px; color: var(--secondary);
+}
+
+.btn-link { color: #fff; text-decoration: none; font-size: 1rem; font-weight: 600; }
+.btn-link:hover { color: var(--primary); }
+
+/* --- FOOTER (New Design) --- */
+.contact-section { 
+    text-align: center; 
+    padding: 100px 5%;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+}
+
+.cta-heading { font-size: 2.5rem; margin-bottom: 30px; font-weight: 800; }
+
+/* The White Button */
+.btn-white {
+    background-color: #ffffff;
+    color: #000000;
+    font-weight: 700;
+    padding: 16px 40px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-size: 1.1rem;
+    transition: transform 0.3s ease;
+    margin-bottom: 40px;
+}
+.btn-white:hover { transform: scale(1.05); box-shadow: 0 0 20px rgba(255,255,255,0.3); }
+
+.social-icons { display: flex; gap: 25px; font-size: 2rem; }
+.social-icons a { color: var(--text-muted); transition: 0.3s; }
+.social-icons a:hover { color: #fff; transform: translateY(-3px); }
+
+/* Animations */
+@keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
+
+/* Mobile */
+
+@media (max-width: 768px) {
+    .hero { flex-direction: column; text-align: center; padding-top: 120px; }
+    .code-block { display: none; }
+    .hamburger { display: block; }
+    
+    .nav-links {
+        position: absolute; top: 100%; left: 0; width: 100%;
+        background: rgba(2,6,23,0.98); flex-direction: column; padding: 40px;
+        transform: translateY(-100%); transition: 0.3s; z-index: -1;
+        opacity: 0; pointer-events: none;
+    }
+    .nav-links.active { transform: translateY(0); opacity: 1; pointer-events: all; }
+    
+    /* --- MOBILE CARD FIXES --- */
+    .swiper { 
+        width: 340px;   /* Slightly wider for mobile to fit text */
+        height: 580px;  /* Taller to ensure button fits */
+    }
+
+    .cta-heading { font-size: 2rem; }
+
+    /* Shrink the image part on mobile to give text more room */
+    .card-visual {
+        height: 40%;    /* Reduced from 50% */
+    }
+    .card-info {
+        height: 60%;    /* Increased text area to 60% */
+        padding: 20px;  /* Reduce padding slightly to save space */
+    }
+    
+    /* Make text slightly smaller on mobile so it doesn't push button out */
+    .card-info p {
+        font-size: 0.9rem;
+        margin-bottom: 15px; /* Ensure space before tags */
+    }
+    
+    .tags {
+        margin-bottom: 15px; /* Reduce gap before button */
+    }
+}
