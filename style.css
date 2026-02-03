@@ -13,7 +13,12 @@
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 html { scroll-behavior: smooth; }
-
+/* style.css - Add this at the very top */
+html, body {
+    width: 100%;
+    overflow-x: hidden; /* Crucial: Stops side-scrolling */
+    position: relative; /* Helps contain absolute elements */
+}
 body {
     background-color: var(--bg-dark);
     color: var(--text-main);
