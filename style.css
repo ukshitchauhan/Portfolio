@@ -13,24 +13,22 @@
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 html { scroll-behavior: smooth; }
-/* style.css - Add this at the very top */
+
+/* Global overflow fix for mobile */
 html, body {
     width: 100%;
-    overflow-x: hidden; /* Crucial: Stops side-scrolling */
-    position: relative; /* Helps contain absolute elements */
-}
-body {
+    overflow-x: hidden;
+    position: relative;
     background-color: var(--bg-dark);
     color: var(--text-main);
     font-family: var(--font-heading);
-    overflow-x: hidden;
 }
 
-/* --- Navbar (Fixed & Working) --- */
+/* --- Navbar --- */
 .navbar {
     display: flex; justify-content: space-between; align-items: center;
     padding: 15px 8%; 
-    position: fixed; width: 100%; top: 0; z-index: 9999; /* High z-index to sit on top of cards */
+    position: fixed; width: 100%; top: 0; z-index: 9999;
     backdrop-filter: blur(15px); background: rgba(2, 6, 23, 0.85);
     border-bottom: 1px solid var(--border-color);
 }
@@ -41,7 +39,6 @@ body {
 .nav-links a { color: var(--text-muted); text-decoration: none; font-weight: 500; transition: 0.3s; font-size: 0.95rem; }
 .nav-links a:hover { color: #fff; }
 
-/* Contact Button in Nav */
 .btn-nav { 
     color: var(--primary) !important; 
     border: 1px solid rgba(168,85,247,0.3); 
@@ -58,11 +55,12 @@ body {
 .badge { display: inline-block; padding: 5px 15px; border-radius: 50px; background: rgba(168,85,247,0.1); color: var(--primary); border: 1px solid rgba(168,85,247,0.3); font-size: 0.8rem; margin-bottom: 20px; }
 .bio { color: var(--text-muted); max-width: 500px; margin-bottom: 30px; }
 
-/* Buttons */
-.hero-btns { display: flex; gap: 15px; }
-.btn { padding: 12px 25px; border-radius: 8px; font-weight: 600; text-decoration: none; transition: 0.3s; }
+/* Buttons with Wrap Support */
+.hero-btns { display: flex; gap: 15px; flex-wrap: wrap; align-items: center; }
+.btn { padding: 12px 25px; border-radius: 8px; font-weight: 600; text-decoration: none; transition: 0.3s; display: inline-flex; align-items: center; gap: 8px; }
 .btn.primary { background: var(--text-main); color: var(--bg-dark); }
 .btn.outline { border: 1px solid var(--border-color); color: var(--text-main); }
+.btn.outline:hover { background: rgba(255,255,255,0.1); border-color: #fff; }
 
 /* --- Code Block --- */
 .code-block {
@@ -96,26 +94,25 @@ body {
 .skill-card:hover { transform: translateY(-5px); border-color: var(--primary); }
 .skill-card i { font-size: 1.5rem; }
 
-/* --- STACKED CARDS PROJECT SECTION --- */
+/* --- Projects (New Bigger Cards) --- */
 .section-header.center { text-align: center; margin-bottom: 50px; }
 .section-heading { font-size: 2.5rem; margin-bottom: 10px; }
 .swipe-hint { color: var(--secondary); font-size: 0.9rem; animation: bounce 2s infinite; }
 
-/* Fixed Dimensions for the Stack Effect */
+/* Desktop Card Size */
 .swiper {
-    width: 500px;   /* Card Width */
-    height: 700px;  /* Card Height */
+    width: 100%;
+    max-width: 420px; /* Big elegant card size */
+    height: 600px;
     padding-top: 20px;
     padding-bottom: 50px;
 }
 
 .swiper-slide {
     border-radius: 20px;
-    /* This shadow creates depth for the stack */
     box-shadow: 0 0 20px rgba(0,0,0,0.5); 
 }
 
-/* Solid Card Design */
 .solid-card {
     width: 100%; height: 100%;
     background: var(--card-solid);
@@ -156,75 +153,78 @@ body {
 .btn-link { color: #fff; text-decoration: none; font-size: 1rem; font-weight: 600; }
 .btn-link:hover { color: var(--primary); }
 
-/* --- FOOTER (New Design) --- */
+/* --- Footer --- */
 .contact-section { 
     text-align: center; 
     padding: 100px 5%;
     display: flex; flex-direction: column; align-items: center; justify-content: center;
 }
-
 .cta-heading { font-size: 2.5rem; margin-bottom: 30px; font-weight: 800; }
-
-/* The White Button */
 .btn-white {
-    background-color: #ffffff;
-    color: #000000;
-    font-weight: 700;
-    padding: 16px 40px;
-    border-radius: 50px;
-    text-decoration: none;
-    font-size: 1.1rem;
-    transition: transform 0.3s ease;
-    margin-bottom: 40px;
+    background-color: #ffffff; color: #000000; font-weight: 700;
+    padding: 16px 40px; border-radius: 50px; text-decoration: none;
+    font-size: 1.1rem; transition: transform 0.3s ease; margin-bottom: 40px;
 }
 .btn-white:hover { transform: scale(1.05); box-shadow: 0 0 20px rgba(255,255,255,0.3); }
-
 .social-icons { display: flex; gap: 25px; font-size: 2rem; }
 .social-icons a { color: var(--text-muted); transition: 0.3s; }
 .social-icons a:hover { color: #fff; transform: translateY(-3px); }
 
-/* Animations */
 @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
 
-/* Mobile */
-
+/* --- FULL RESPONSIVE FIX --- */
 @media (max-width: 768px) {
-    .hero { flex-direction: column; text-align: center; padding-top: 120px; }
-    .code-block { display: none; }
-    .hamburger { display: block; }
     
+    /* 1. Global Padding Reset */
+    .navbar, .hero, .section, .contact-section {
+        padding-left: 20px !important; 
+        padding-right: 20px !important;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    /* 2. Navbar Fix */
+    .navbar { justify-content: space-between; padding-top: 15px; padding-bottom: 15px; }
     .nav-links {
-        position: absolute; top: 100%; left: 0; width: 100%;
-        background: rgba(2,6,23,0.98); flex-direction: column; padding: 40px;
+        width: 100vw; left: 0;
+        background: rgba(2,6,23,0.98); flex-direction: column; padding: 80px 20px;
         transform: translateY(-100%); transition: 0.3s; z-index: -1;
-        opacity: 0; pointer-events: none;
+        opacity: 0; pointer-events: none; position: absolute; top: 100%;
     }
     .nav-links.active { transform: translateY(0); opacity: 1; pointer-events: all; }
+    .hamburger { display: block; }
+
+    /* 3. Hero Section (Text Size) */
+    .hero {
+        padding-top: 120px !important; 
+        display: flex; flex-direction: column;
+        text-align: center; align-items: center;
+        min-height: auto;
+    }
+    .hero h1 { font-size: 2.5rem; line-height: 1.2; width: 100%; }
+    .bio { font-size: 1rem; max-width: 100%; padding: 0 10px; }
+    .hero-btns { justify-content: center; width: 100%; }
+    .code-block { display: none; }
     
-    /* --- MOBILE CARD FIXES --- */
+    /* 4. Skills & Projects */
+    .skills-grid { gap: 10px; }
+    .skill-card { padding: 10px 20px; font-size: 0.9rem; flex: 1 1 40%; justify-content: center; }
+
+    /* CARD FIXES FOR MOBILE */
     .swiper { 
-        width: 340px;   /* Slightly wider for mobile to fit text */
-        height: 580px;  /* Taller to ensure button fits */
+        width: 100% !important; 
+        max-width: 340px !important; 
+        height: 580px; 
+        overflow: visible;
+        margin: 0 auto;
     }
+    .card-visual { height: 40%; }
+    .card-info { height: 60%; padding: 20px; }
+    .card-info h3 { font-size: 1.4rem; }
+    .card-info p { font-size: 0.9rem; margin-bottom: 15px; }
+    .tags { margin-bottom: 15px; }
 
-    .cta-heading { font-size: 2rem; }
-
-    /* Shrink the image part on mobile to give text more room */
-    .card-visual {
-        height: 40%;    /* Reduced from 50% */
-    }
-    .card-info {
-        height: 60%;    /* Increased text area to 60% */
-        padding: 20px;  /* Reduce padding slightly to save space */
-    }
-    
-    /* Make text slightly smaller on mobile so it doesn't push button out */
-    .card-info p {
-        font-size: 0.9rem;
-        margin-bottom: 15px; /* Ensure space before tags */
-    }
-    
-    .tags {
-        margin-bottom: 15px; /* Reduce gap before button */
-    }
+    /* 5. Contact Section */
+    .cta-heading { font-size: 2rem; line-height: 1.2; }
+    .btn-white { width: 100%; max-width: 250px; }
 }

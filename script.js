@@ -35,8 +35,10 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         // Close mobile menu if open
         navLinks.classList.remove('active');
         const icon = hamburger.querySelector('i');
-        icon.classList.remove('fa-times');
-        icon.classList.add('fa-bars');
+        if(icon) {
+            icon.classList.remove('fa-times');
+            icon.classList.add('fa-bars');
+        }
 
         // Scroll to section
         document.querySelector(this.getAttribute('href')).scrollIntoView({
