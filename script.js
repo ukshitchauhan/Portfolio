@@ -2,7 +2,7 @@
 var swiper = new Swiper(".mySwiper", {
     effect: "cards",
     grabCursor: true,
-    initialSlide: 1, // Start at 2nd slide so you can see stack behind it
+    initialSlide: 0, // Start at 2nd slide so you can see stack behind it
     cardsEffect: {
         perSlideOffset: 15, // Offset between cards in the stack
         perSlideRotate: 4,  // Rotation of cards in the stack
